@@ -1,20 +1,20 @@
-Name;R Name
-Rastrigin function;rastr
-Schaffer function 2;schaffer2
-Ackley function;ackley
-Sphere function;spheref
-Rosenbrock function;rosen
-Beale function;beale
-Goldstein-price function;goldpr 
-Booth function;booth
-Bukin function n. 6;bukin6
-Matyas function;matya
-Levy function n. 13;levy13
-Hump function;hump
-Easom function;easom
-Cross-in-tray function;crossit
-Eggholder function;egg 
-Holder table function;holder
-Mccormick function;mccorm
-Schaffer function n. 4;schaffer4
-Styblinski-tang function;stybtang
+Name,R Name
+Rastrigin function,rastr
+Schaffer function 2,schaffer2
+Ackley function,ackley
+Sphere function,spheref
+Rosenbrock function,rosen
+Beale function,beale
+Goldstein-price function,goldpr 
+Booth function,booth
+Bukin function n. 6,bukin6
+Matyas function,matya
+Levy function n. 13,levy13
+Hump function,hump
+Easom function,easom
+Cross-in-tray function,crossit
+Eggholder function,egg 
+Holder table function,holder
+Mccormick function,mccorm
+Schaffer function n. 4,schaffer4
+Styblinski-tang function,stybtang
