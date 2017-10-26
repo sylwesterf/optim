@@ -1,20 +1,20 @@
-Name,R Name
-Rastrigin function,rastr
-Schaffer function 2,schaffer2
-Ackley function,ackley
-Sphere function,spheref
-Rosenbrock function,rosen
-Beale function,beale
-Goldstein-price function,goldpr 
-Booth function,booth
-Bukin function n. 6,bukin6
-Matyas function,matya
-Levy function n. 13,levy13
-Hump function,hump
-Easom function,easom
-Cross-in-tray function,crossit
-Eggholder function,egg 
-Holder table function,holder
-Mccormick function,mccorm
-Schaffer function n. 4,schaffer4
-Styblinski-tang function,stybtang
+Name,R.name,f.opt,x.opt,y.opt,x.min,x.max,y.min,y.max
+Rastrigin function,rastr,0,0,0,-5.12,5.12,-5.12,5.12
+Schaffer function 2,schaffer2,0,0,0,-100,100,-100,100
+Ackley function,ackley,0,0,0,-5,5,-5,5
+Sphere function,spheref,0,0,0,-100,100,-100,100
+Rosenbrock function,rosen,0,1,1,-100,100,-100,100
+Beale function,beale,0,3,0.5,-4.5,4.5,-4.5,4.5
+Goldstein-price function,goldpr ,3,0,-1,-2,2,-2,2
+Booth function,booth,0,1,3,-10,10,-10,10
+Bukin function n. 6,bukin6,0,-10,1,-15,-5,-3,3
+Matyas function,matya,0,0,0,-10,10,-10,10
+Levy function n. 13,levy13,0,1,1,-10,10,-10,10
+Hump function,hump,0,0,0,-5,5,-5,5
+Easom function,easom,-1,3.1415927,3.1415927,-100,100,-100,100
+Cross-in-tray function,crossit,-2.06261,1.34,-1.34,-10,10,-10,10
+Eggholder function,egg ,-959.6407,512,404.2319,-512,512,-512,512
+Holder table function,holder,-19.2085,8.05502,9.66459,-10,10,-10,10
+Mccormick function,mccorm,-1.9133,-0.54719,-1.54719,-1.5,4,-3,4
+Schaffer function n. 4,schaffer4,0.292579,0,1.25313,-100,100,-100,100
+Styblinski-tang function,stybtang,-78.33198,-2.903534,-2.903534,-5,5,-5,5
