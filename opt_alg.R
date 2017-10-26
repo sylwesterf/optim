@@ -1,7 +1,8 @@
 library(numDeriv)
 
 # Steepest Descent
-steepestDescent = function(f, x, a, e, maxIter){
+steepestDescent = function(f, x, a, e, maxIter) 
+{
   # steepestDescent
   # INPUT
   #      - f objective function
@@ -10,7 +11,7 @@ steepestDescent = function(f, x, a, e, maxIter){
   #      - e termination criterion 
   #      - maxIter maximum number of iterations
   
-  result <- list(x_opt = x, f_opt = f(x), x_hist = x, f_hist = f(x), iter = 0,
+  result <- list(x.opt = x, f.opt = f(x), x.hist = x, f.hist = f(x), iter = 0,
                  iter.time = c(), epoch = c())
   
   #start time
@@ -18,20 +19,20 @@ steepestDescent = function(f, x, a, e, maxIter){
 
   currIter <- 1
   finished <- FALSE
-  x_old <- x
+  x.old <- x
   while(finished == FALSE){
     StartT <- Sys.time()
-    x_new <- lineSearch(f, x_old, x_old - a*grad(f, x_old), 1)
-    #x_new <- x_old - a*grad(f, x_old)
-    if(currIter <= maxIter & abs(f(x_new)-f(x_old))>e & f(x_new)<f(x_old)){
-      x_old <- x_new
-      result$x_opt  <- x_new
-      result$f_opt  <- f(x_new)
-      result$x_hist <- rbind(result$x_hist, x_new)
-      result$f_hist <- rbind(result$f_hist, f(x_new))
-      result$iter   <- currIter
+    x.new <- lineSearch(f, x.old, x.old - a*grad(f, x.old), 1)
+    #x.new <- x.old - a*grad(f, x.old)
+    if(currIter <= maxIter & abs(f(x.new)-f(x.old))>e & f(x.new)<f(x.old)){
+      x.old <- x.new
+      result$x.opt  <- x.new
+      result$f.opt  <- f(x.new)
+      result$x.hist <- rbind(result$x.hist, x.new)
+      result$f.hist <- rbind(result$f.hist, f(x.new))
+      result$iter  <- currIter
       result$iter.time   <- rbind(result$iter.time, Sys.time() - StartT)
-    }else{
+    } else {
       finished <- TRUE
     }
     currIter <- currIter + 1
@@ -51,29 +52,30 @@ lineSearch = function(f, x0, x1, gridSize){
   #      - x1 new point (in terms of gradient descent algorithm)
   #      - gridSize number of points between x0 and x1 
   
-  x_best <- x0
+  x.best <- x0
   for(i in 1 : gridSize){
     t <- i/gridSize
-    x_new <- t*x1 + (1-t)*x0
-    if(f(x_best)>f(x_new)){
-      x_best <- x_new
+    x.new <- t*x1 + (1-t)*x0
+    if(f(x.best)>f(x.new)){
+      x.best <- x.new
     }
   }
-  return(x_best)
+  return(x.best)
 }
 
 # Simulated Annealing
 simulatedAnnealing = function(f, x, alpha, t, delta, maxIter)
 {
-  # Simulated Annealin Algorithm
-  # f - objective function
-  # x - inital solution
-  # alpha - annealing schedule parameter
-  # t - inital temperature
-  # delta - neighbourhood radius
-  # maxIt - maximum no. of iterations
+  # Simulated Annealing Algorithm
+  # INPUT
+  #	 - f objective function
+  #	 - x inital solution
+  #	 - alpha annealing schedule parameter
+  #	 - t inital temperature
+  #	 - delta neighbourhood radius
+  #	 - maxIt maximum no. of iterations
   
-  result = list(x_opt = x, f_opt = f(x), x_hist = x, f_hist = f(x), temperature = t,
+  result = list(x.opt = x, f.opt = f(x), x.hist = x, f.hist = f(x), temperature = t,
                 iter.time = 0, epoch = c())
   
   #start time
@@ -81,37 +83,37 @@ simulatedAnnealing = function(f, x, alpha, t, delta, maxIter)
 
   currIter <- 1
   finished <- FALSE
-  x_s <- x
+  x.s <- x
   
   while(finished == FALSE){
     
     #epoch
     start.iter <- Sys.time()
     
-    # x_c - candidate sol. drawn uniformly fron N(x)
-    #u = runif(length(x_s))
-    #x_c = x_s + (-delta + 2 * delta * u)
-    x_c = x_s - runif(length(x_s), min = -delta, max = delta)
+    # x.c - candidate sol. drawn uniformly fron N(x)
+    #u = runif(length(x.s))
+    #x.c = x.s + (-delta + 2 * delta * u)
+    x.c = x.s - runif(length(x.s), min = -delta, max = delta)
     
     # A - Metropolis activation function
-    A = min(1, exp(- (f(x_c) - f(x_s)) / t))
+    A = min(1, exp(- (f(x.c) - f(x.s)) / t))
     
     # transition to candidate solution
     if (runif(1) < A)
     {
-      x_s <- x_c
+      x.s <- x.c
     }
     
     # temperature update
     t = alpha * t
 
     if(currIter<maxIter){
-      if(f(x_s)<f(result$x_opt)){
-        result$x_opt <- x_s
-        result$f_opt <- f(x_s)
+      if(f(x.s)<f(result$x.opt)){
+        result$x.opt <- x.s
+        result$f.opt <- f(x.s)
       }
-      result$x_hist       <- rbind(result$x_hist, x_s)
-      result$f_hist       <- rbind(result$f_hist, f(x_s))
+      result$x.hist       <- rbind(result$x.hist, x.s)
+      result$f.hist       <- rbind(result$f.hist, f(x.s))
       result$temperature  <- rbind(result$temperature, t)
       result$transProb    <- rbind(result$transProb, A)
       result$iter.time    <- rbind(result$iter.time, Sys.time() - start.iter)
@@ -129,33 +131,33 @@ simulatedAnnealing = function(f, x, alpha, t, delta, maxIter)
 }
 
 #Genetic Algorithm
-geneticAlgorithm = function(f, x_min, x_max, cel, popSize, pMut, maxIter)
+geneticAlgorithm = function(f, x.min, x.max, cel, popSize, pMut, maxIter)
 {
   # geneticAlgorithm
   # INPUT
   #      - f objective function
-  #      - x_min vector of the minimum values of coordinates
-  #      - x_max vector of the maximum values of coordinates
+  #      - x.min vector of the minimum values of coordinates
+  #      - x.max vector of the maximum values of coordinates
   #      - cel coordinate encryption length 
   #      - popSize size of the population
   #      - pMut probability of single genome mutation
   #      - maxIter number of generations
   
-  result <- list(x_opt = c(), f_opt = c(), x_hist= c(), f_hist= c(), f_mean = c(),
+  result <- list(x.opt = c(), f.opt = c(), x.hist= c(), f.hist= c(), f.mean = c(),
                  iter.time = c(), epoch = c())
   
   #start time
   starttime <- Sys.time()
   
   # Check the number of dimensions
-  Dim <- length(x_min) 
+  Dim <- length(x.min) 
     
   # Initialize Population
   population <- matrix(NA, nrow = popSize, ncol = cel*Dim)
   for(i in 1 : popSize){
     population[i,] <- runif(cel*Dim)>1
   }
-  coordinates <- getCoordinates(population, cel, x_min, x_max)
+  coordinates <- getCoordinates(population, cel, x.min, x.max)
   
   # Calculate fittness of individuals
   objFunction <- rep(NA, popSize)
@@ -164,8 +166,8 @@ geneticAlgorithm = function(f, x_min, x_max, cel, popSize, pMut, maxIter)
   }
   
   # Assign the first population to output 
-  result$x_opt <- coordinates[which.min(objFunction),]
-  result$f_opt <- f(coordinates[which.min(objFunction),])
+  result$x.opt <- coordinates[which.min(objFunction),]
+  result$f.opt <- f(coordinates[which.min(objFunction),])
   
   # The generational loop
   finished <- FALSE
@@ -177,19 +179,19 @@ geneticAlgorithm = function(f, x_min, x_max, cel, popSize, pMut, maxIter)
     
     # Assign the output
     if(currIter <= maxIter){
-      if(result$f_opt > f(coordinates[which.min(objFunction),])){
-        result$x_opt <- coordinates[which.min(objFunction),]
-        result$f_opt <- f(coordinates[which.min(objFunction),])
+      if(result$f.opt > f(coordinates[which.min(objFunction),])){
+        result$x.opt <- coordinates[which.min(objFunction),]
+        result$f.opt <- f(coordinates[which.min(objFunction),])
       }
-      result$f_hist <- rbind(result$f_hist, result$f_opt) 
-      result$x_hist <- rbind(result$x_hist, coordinates[which.min(objFunction),])
-      result$f_mean <- rbind(result$f_mean, mean(objFunction)) 
+      result$f.hist <- rbind(result$f.hist, result$f.opt) 
+      result$x.hist <- rbind(result$x.hist, coordinates[which.min(objFunction),])
+      result$f.mean <- rbind(result$f.mean, mean(objFunction)) 
     }else{
       finished <- TRUE
     }
     
     # Translate binary coding into real values  
-    coordinates <- getCoordinates(population, cel, x_min, x_max)
+    coordinates <- getCoordinates(population, cel, x.min, x.max)
     
     # Calculate fittness of the individuals
     objFunction <- rep(NA, popSize)
@@ -245,17 +247,17 @@ intbin = function(x){
   return(sum(2^(which(rev(x==1))-1)))
 }
   
-getCoordinates = function(population, cel, x_min, x_max, pMut){
+getCoordinates = function(population, cel, x.min, x.max, pMut){
   
   # Check the number of dimensions
-  Dim <- length(x_min) 
+  Dim <- length(x.min) 
   
   # Transform the binary coding into coordinates
   coordinates <- matrix(NA, nrow = dim(population)[1], ncol = Dim)
   for(i in 1 : dim(population)[1]){
     for(j in 1 : 2){
       coordinatesTemp <- intbin(population[i, seq(cel*(j-1)+1, j*cel)])
-      coordinates[i,j] <- ((x_max[j]-x_min[j])/(2^cel-1))*coordinatesTemp+x_min[j]
+      coordinates[i,j] <- ((x.max[j]-x.min[j])/(2^cel-1))*coordinatesTemp+x.min[j]
                          #^( dł. przedziału  )                           #^(do skrajnego przypadku)
                         #^(   dł. najmniejszego kroku   )              
     }
