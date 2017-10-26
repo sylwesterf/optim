@@ -365,7 +365,7 @@ particleSwarm = function(f, popSize=10, d=2, l.bound=0, u.bound=1, w, c1, c2, ma
     particle.matrix <- particle.matrix + velocity
     
     #iteration time
-    result$iter.time <- append(result$iter.time, Sys.time() - start.iter)
+    result$iter.time <- rbind(result$iter.time, Sys.time() - start.iter)
   }
   
   #solution
