@@ -7,13 +7,13 @@ test functions
 
 output:
 1alg+1fun:
-found optimum
+found optimal value
 convergence
 contour
 itertime hist
 
 4alg+1fun:
-found optimas
+found optimal values
 comparison (convergence, contour) on one plot
 itertime boxplot
 
