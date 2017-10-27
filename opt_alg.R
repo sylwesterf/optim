@@ -266,7 +266,7 @@ getCoordinates = function(population, cel, x.min, x.max, pMut){
 }
 
 #Particle Swarm Optimization
-particleSwarm = function(f, popSize=10, d=2, l.bound=0, u.bound=1, w, c1, c2, maxIter=100, criterion=FALSE)
+particleSwarm <- function(f, popSize=10, d=2, l.bound=c(-1,-1), u.bound=c(1,1), w, c1, c2, maxIter=100, criterion=FALSE)
 {
   # psoAlgorithm
   # INPUT
@@ -292,7 +292,9 @@ particleSwarm = function(f, popSize=10, d=2, l.bound=0, u.bound=1, w, c1, c2, ma
   
   #initialize particles
   #particle.matrix <- t(matrix((u.bound - l.bound) * runif(popSize*d) + l.bound, nrow=d, ncol=popSize))
-  particle.matrix <- t(matrix(runif(popSize*d, l.bound, u.bound), nrow=d, ncol=popSize))
+  #particle.matrix <- t(matrix(runif(popSize*d, l.bound, u.bound), nrow=d, ncol=popSize))
+  particle.matrix <- cbind(runif(popSize, l.bound[1], u.bound[1]),
+                           runif(popSize, l.bound[2], u.bound[2]))
   
   #initial pbest 
   #f.pbest <- apply(particle.matrix, 1, f)
@@ -328,10 +330,10 @@ particleSwarm = function(f, popSize=10, d=2, l.bound=0, u.bound=1, w, c1, c2, ma
       if (i/maxIter >  0.2){
         best.20 <- unname(tail(result$x.hist, floor(i*0.2)))
         max.euclidean.dist <- max(sqrt(rowSums(best.20 - t(matrix(gbest, d, floor(i*0.2))))^2))
-          if (max.euclidean.dist < criterion[2]){
-            result <- c(result, setNames((i-1), "no.ite"))
-            break
-          }
+        if (max.euclidean.dist < criterion[2]){
+          result <- c(result, setNames((i-1), "no.ite"))
+          break
+        }
       }
     }
     
@@ -379,4 +381,5 @@ particleSwarm = function(f, popSize=10, d=2, l.bound=0, u.bound=1, w, c1, c2, ma
   result$particles <- particle.matrix
   
   return(result)
-}  
+}
+
