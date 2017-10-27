@@ -1,0 +1,21 @@
+test optimization algorithm on different functions
+
+input:
+algorithm
+parameters
+test functions 
+
+output:
+1alg+1fun:
+found optimum
+convergence
+contour
+itertime hist
+
+4alg+1fun:
+found optimas
+comparison (convergence, contour) on one plot
+itertime boxplot
+
+1alg+Xfun:
+found opt vs real
